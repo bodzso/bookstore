@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bodnar.zsombor.bookstore.model.Cart;
+import bodnar.zsombor.bookstore.model.CartItem;
+import bodnar.zsombor.bookstore.model.Product;
 import bodnar.zsombor.bookstore.model.User;
+import bodnar.zsombor.bookstore.repository.CartItemRepository;
 import bodnar.zsombor.bookstore.repository.CartRepository;
+import bodnar.zsombor.bookstore.repository.ProductRepository;
 import bodnar.zsombor.bookstore.repository.UserRepository;
 
 @Service
@@ -19,6 +23,12 @@ public class CartService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ProductRepository productRepository;
+	
+	@Autowired
+	CartItemRepository cartItemRepository;
 	
 	@Transactional
 	public Long create(Long userId) {
@@ -32,6 +42,21 @@ public class CartService {
 	}
 
 	public List<Cart> findAll() {
-		return (List<Cart>) cartRepository.findAll();
+		return cartRepository.findAll();
+	}
+	
+	@Transactional
+	public void addProduct(Long productId, Long cartId, Integer quantity) {
+		Product product = productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+		Cart cart = cartRepository.findById(cartId).orElseThrow(IllegalArgumentException::new);
+		
+		CartItem cartItem = cartItemRepository.findFirstByCart_IdAndProduct_Id(cartId, productId);
+		
+		if(cartItem == null)
+			cartItem = cartItemRepository.save(new CartItem(cart, product, quantity));
+		else {
+			cartItem.setQuantity(cartItem.getQuantity() + quantity);
+			cartItemRepository.save(cartItem);
+		}
 	}
 }
