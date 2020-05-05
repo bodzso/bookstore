@@ -26,6 +26,8 @@ public class CartItem {
 	private Long id;
 
 	@ManyToOne
+	@NonNull
+	@NotNull
 	private Cart cart;
 
 	@ManyToOne
