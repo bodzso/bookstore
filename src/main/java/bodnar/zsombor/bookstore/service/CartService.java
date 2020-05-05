@@ -59,4 +59,21 @@ public class CartService {
 			cartItemRepository.save(cartItem);
 		}
 	}
+	
+	@Transactional
+	public void removeProduct(Long productId, Long cartId, Integer quantity) {
+		productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+		cartRepository.findById(cartId).orElseThrow(IllegalArgumentException::new);
+
+		CartItem cartItem = cartItemRepository.findFirstByCart_IdAndProduct_Id(cartId, productId);
+
+		if (cartItem == null || cartItem.getQuantity() < quantity)
+			throw new IllegalArgumentException();
+		else if (cartItem.getQuantity() == quantity) {
+			cartItemRepository.deleteById(cartItem.getId());
+		} else {
+			cartItem.setQuantity(cartItem.getQuantity() - quantity);
+			cartItemRepository.save(cartItem);
+		}
+	}
 }
