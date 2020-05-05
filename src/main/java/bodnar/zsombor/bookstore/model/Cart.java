@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ import lombok.ToString;
 
 @Entity
 @Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 @ToString(exclude = { "items" })
 public class Cart {
 
@@ -25,6 +28,8 @@ public class Cart {
 
 	@OneToOne
 	@MapsId
+	@NonNull
+	@NotNull
 	private User user;
 
 	@OneToMany(mappedBy = "cart")
