@@ -46,4 +46,10 @@ public class CartController {
 			@PathVariable("quantity") Integer quantity) {
 		cartService.removeProduct(productId, cartId, quantity);
 	}
+	
+	@PostMapping(value = "/checkout-cart/{cartId}")
+	public void checkoutCart(@PathVariable("cartId") Long cartId)
+	{
+		cartService.checkoutCart(cartId);
+	}
 }

@@ -76,4 +76,10 @@ public class CartService {
 			cartItemRepository.save(cartItem);
 		}
 	}
+
+	public void checkoutCart(Long cartId) {
+		Cart cart = cartRepository.findById(cartId).orElseThrow(IllegalArgumentException::new);
+
+		cartItemRepository.deleteInBatch(cart.getItems());
+	}
 }
