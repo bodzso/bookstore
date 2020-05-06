@@ -77,6 +77,7 @@ public class CartService {
 		}
 	}
 
+	@Transactional
 	public void checkoutCart(Long cartId) {
 		Cart cart = cartRepository.findById(cartId).orElseThrow(IllegalArgumentException::new);
 
