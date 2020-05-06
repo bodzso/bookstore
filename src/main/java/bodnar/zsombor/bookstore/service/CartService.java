@@ -1,5 +1,6 @@
 package bodnar.zsombor.bookstore.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,26 @@ public class CartService {
 			cartItem.setQuantity(cartItem.getQuantity() - quantity);
 			cartItemRepository.save(cartItem);
 		}
+	}
+	
+	@Transactional
+	public void updateTotal(Long cartId) {
+		Cart cart = cartRepository.findById(cartId).orElseThrow(IllegalArgumentException::new);
+		
+		BigDecimal total = BigDecimal.ZERO;
+		var items = cart.getItems();
+
+		if (items == null) {
+			cart.setTotal(total);
+		} else {
+			for (var item : items) {
+				total = total.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
+			}
+			
+			cart.setTotal(total);
+		}
+		
+		cartRepository.save(cart);
 	}
 
 	@Transactional
