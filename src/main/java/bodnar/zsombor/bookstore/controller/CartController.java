@@ -40,7 +40,7 @@ public class CartController {
 		cartService.addProduct(productId, cartId, quantity);
 		cartService.updateTotal(cartId);
 	}
-	
+
 	@PostMapping(value = "/remove-product/{cartId}/{productId}/{quantity}")
 	@ResponseStatus(HttpStatus.OK)
 	public void removeProduct(@PathVariable("cartId") Long productId, @PathVariable("productId") Long cartId,
@@ -48,10 +48,9 @@ public class CartController {
 		cartService.removeProduct(productId, cartId, quantity);
 		cartService.updateTotal(cartId);
 	}
-	
+
 	@PostMapping(value = "/checkout-cart/{cartId}")
-	public void checkoutCart(@PathVariable("cartId") Long cartId)
-	{
+	public void checkoutCart(@PathVariable("cartId") Long cartId) {
 		cartService.checkoutCart(cartId);
 	}
 }

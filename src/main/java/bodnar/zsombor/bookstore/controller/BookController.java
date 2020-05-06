@@ -17,18 +17,18 @@ import bodnar.zsombor.bookstore.service.BookService;
 @RestController
 @RequestMapping("/books")
 public class BookController {
-	
+
 	@Autowired
 	BookService bookService;
 
 	@PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public Long create(@RequestBody Book book) {
-        return bookService.create(book);
-    }
-	
+		return bookService.create(book);
+	}
+
 	@GetMapping
-    public List<Book> findAll() {
-        return bookService.findAll();
-    }
+	public List<Book> findAll() {
+		return bookService.findAll();
+	}
 }

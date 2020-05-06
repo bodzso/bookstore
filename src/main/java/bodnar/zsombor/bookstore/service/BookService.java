@@ -14,10 +14,9 @@ public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
-	
+
 	@Transactional
-	public Long create(Book book)
-	{
+	public Long create(Book book) {
 		return bookRepository.save(book).getId();
 	}
 

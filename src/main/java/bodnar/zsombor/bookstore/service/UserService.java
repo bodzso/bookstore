@@ -11,13 +11,12 @@ import bodnar.zsombor.bookstore.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Transactional
-	public Long createUser(User user)
-	{
+	public Long createUser(User user) {
 		return userRepository.save(user).getId();
 	}
 

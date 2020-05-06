@@ -20,12 +20,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping
-    public List<User> findAll() {
-        return userService.findAll();
-    }
-	
+	public List<User> findAll() {
+		return userService.findAll();
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Long create(@RequestBody User user) {

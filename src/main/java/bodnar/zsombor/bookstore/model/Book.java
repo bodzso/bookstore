@@ -26,7 +26,7 @@ public class Book extends Product {
 
 	public Book(@NonNull BigDecimal price, @NonNull String author, @NonNull String title) {
 		super(author + ": " + title, price);
-		
+
 		this.author = author;
 		this.title = title;
 	}
