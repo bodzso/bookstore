@@ -23,7 +23,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-@ToString(exclude = { "items" })
+@ToString(exclude = { "user" })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Cart {
 
